@@ -7,12 +7,17 @@ function App() {
   const [data, setData] = useState()
   useEffect(() => {
     if (id.length === 2) {
-      let stream = fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
-      .then(stream => stream.json())
-      .then(results => { 
-        setData(results)
+      const handle = setTimeout(() => { 
+        fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then(stream => stream.json())
+        .then(results => { 
+          setData(results)
         })
-      // let text2 = setTitle(results))
+      }, 2000)
+
+      return () => { 
+        clearTimeout(handle)
+      }
     }
   }, [id])
 
